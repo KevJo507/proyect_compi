@@ -1,0 +1,22 @@
+body{
+    background-image: url(../img/Fondo.png);
+    background-repeat: no-repeat;
+    background-size: 150%;
+    background-attachment: fixed;
+    
+    
+}
+.Header{
+    background-image: url(../img/Logo.png);
+    background-size: 14%;
+    background-repeat: no-repeat;
+    margin: 50px;
+    padding: 70px;
+    background-color: rgba(0,0,0,0.65);
+    text-align: center;
+    color: white;
+}
+div{
+ 
+
+}
