@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
-   <h:head>
+    <h:head>
         <title>Compilador</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
         <link rel="icon" type="image/jpg" href="img/Icono.png" />
@@ -14,21 +14,19 @@
                 <h1>Universidad Mariano Gálvez</h1>
             </div>
         </header>
-        
         <section>
-            <h:form>
+            <h:form enctype="multipart/form-data">
             <!-- Area Para La Logia de Proyecto -->
-            <h:commandButton value ="Subir Archivo"/>
+            <h:inputFile  value="#{controller.archivo}" />
             <h:panelGrid columns="2">
                 <h:inputTextarea value = "" /> 
                 <h:inputTextarea value = "" /> 
                 <h:inputTextarea value = "" /> 
                 <h:inputTextarea value = "" /> 
             </h:panelGrid>
-        </h:form>
+           </h:form>
         </section>
 
     </h:body>
 </html>
-
 
