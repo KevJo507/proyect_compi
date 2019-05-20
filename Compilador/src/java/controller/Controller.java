@@ -5,39 +5,42 @@
  */
 package controller;
 
+import javax.annotation.ManagedBean;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import Model.Model;
-import java.io.*;
+import javax.faces.application.FacesMessage;
+//import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 /**
  *
  * @author scorpion
  */
 @Named(value = "controller")
 @RequestScoped
+@ManagedBean
 
 public class Controller {
-    
-   private File Archivo;
-
-    public File getArchivo() {
-        return Archivo;
+    private UploadedFile file;
+ 
+    public UploadedFile getFile() {
+        return file;
     }
-
-    public void setArchivo(File Archivo) {
-        this.Archivo = Archivo;
+ 
+    public void setFile(UploadedFile file) {
+        this.file = file;
     }
-   
-    public String Uplod(){
-        String document = "";
-        
-        try {
-            FileReader file = new FileReader(getArchivo());
-            BufferedReader read = new BufferedReader(file);
-            document = read.readLine();
-        } catch (Exception e) {
+     
+    public void upload() {
+        if(file != null) {
+            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
         }
-        
-        return document;
+    }
+     
+    public void handleFileUpload(FileUploadEvent event) {
+        FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 }
