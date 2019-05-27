@@ -20,10 +20,10 @@
             <h:commandButton value="upload" action="#{uploadBean.upload}"/>
         </h:form>
         <h:panelGrid columns="2">
-            <h:inputTextarea value = "#{uploadBean.texto}" /> 
-            <h:inputTextarea value = "" /> 
-            <h:inputTextarea value = "" /> 
-            <h:inputTextarea value = "" /> 
+            <h:inputTextarea class="area" value = "#{uploadBean.lexico}" /> 
+            <h:inputTextarea class="area" value = "#{uploadBean.semantico}" /> 
+            <h:inputTextarea class="area" value = "#{uploadBean.sintactico}" /> 
+            <h:inputTextarea class="area" value = "" /> 
         </h:panelGrid>
         </section>
     </h:body>

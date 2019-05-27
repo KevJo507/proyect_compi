@@ -1,15 +1,20 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Controllers;
 
+import Model.Variables;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
-import java.util.Scanner;
+import java.io.InputStreamReader;
 import javax.inject.Named;
+
+
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.servlet.http.Part;
 
 /**
  *
@@ -20,40 +25,43 @@ import javax.servlet.http.Part;
 @ManagedBean
 @ViewScoped
 
-public class UploadBean {
+public class UploadBean extends Variables {
     
-    private Reader file;
-    String[] texto;
+    String linea;
+    String[] registro = new String[2];
     
-    public String[] getTexto() {
-        return texto;
-    }
-    public void setTexto(String[] texto) {
-        this.texto = texto;
-    }
-
-    public Part getFile() {
-        return (Part) file;
-    }
-    public void setFile(Part file) {
-        this.file = (Reader) file;
-    }
-    
-//    public void upload() throws IOException {
-//       Scanner s = new Scanner(file.getInputStream());
-//       String fileContent = s.useDelimiter("\\A").next();
-//       System.out.println(fileContent);
-//    }
     
     public void upload() throws IOException {
-        BufferedReader leer = new BufferedReader(this.file);
-        String linea;
-        String registro[] = new String[2];
-        String respuesta = "Respuesta no registrada";
+     AnalisisLexico();
+     AnalisisSitactico();
+     AnalisisSemantico();
+    }  
+    
+    public void AnalisisLexico() throws IOException{
+        BufferedReader leer = new BufferedReader(new InputStreamReader(file.getInputStream()));
         
-        while( (linea = leer.readLine()) != null){
+        while((linea = leer.readLine())!= null){
             registro = linea.split("\\|");
-            System.out.println(registro);
+            lexico += registro[0] + " | " + registro[1] +"\n";
         }
     }
-}
+    
+    public void AnalisisSitactico() throws IOException{
+        BufferedReader leer = new BufferedReader(new InputStreamReader(file.getInputStream()));
+        
+        while((linea = leer.readLine())!= null){
+            registro = linea.split("\\|");
+            Sintactico += registro[0] + " | " + registro[1] +"\n";
+        }
+    }
+    
+    public void AnalisisSemantico() throws IOException{
+        BufferedReader leer = new BufferedReader(new InputStreamReader(file.getInputStream()));
+        
+        while((linea = leer.readLine())!= null){
+            registro = linea.split("\\|");
+            semantico += registro[0] + " | " + registro[1] +"\n";
+        }
+    }
+} 
+    
