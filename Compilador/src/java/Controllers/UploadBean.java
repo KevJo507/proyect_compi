@@ -10,9 +10,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import javax.inject.Named;
-
-
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
