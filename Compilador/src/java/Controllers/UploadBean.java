@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Scanner;
 import javax.inject.Named;
@@ -22,21 +23,39 @@ import javax.servlet.http.Part;
 
 public class UploadBean {
     
-    private Reader file;
-    String[] texto;
-    
-    public String[] getTexto() {
-        return texto;
+    private Part file;
+    String archivo = "";
+    String lexema = "";
+    String sintaxis = "";
+
+    public String getLexema() {
+        return lexema;
     }
-    public void setTexto(String[] texto) {
-        this.texto = texto;
+
+    public void setLexema(String lexema) {
+        this.lexema = lexema;
+    }
+
+    public String getSintaxis() {
+        return sintaxis;
+    }
+
+    public void setSintaxis(String sintaxis) {
+        this.sintaxis = sintaxis;
+    }
+    
+    public String getArchivo() {
+        return archivo;
+    }
+    public void setArchivo(String archivo) {
+        this.archivo = archivo;
     }
 
     public Part getFile() {
-        return (Part) file;
+        return file;
     }
     public void setFile(Part file) {
-        this.file = (Reader) file;
+        this.file = file;
     }
     
 //    public void upload() throws IOException {
@@ -46,14 +65,30 @@ public class UploadBean {
 //    }
     
     public void upload() throws IOException {
-        BufferedReader leer = new BufferedReader(this.file);
+        BufferedReader leer = new BufferedReader(new InputStreamReader(file.getInputStream()));
         String linea;
         String registro[] = new String[2];
-        String respuesta = "Respuesta no registrada";
-        
+                
         while( (linea = leer.readLine()) != null){
             registro = linea.split("\\|");
-            System.out.println(registro);
+            this.archivo += registro[0] +" ";
+            this.archivo += registro[1] +"\n";
+            
+        }
+        
+        lexema();
+    }
+    
+    public void lexema() throws IOException {
+        BufferedReader leer = new BufferedReader(new InputStreamReader(file.getInputStream()));
+        String linea;
+        String registro[] = new String[2];
+                
+        while( (linea = leer.readLine()) != null){
+            registro = linea.split("\\|");
+            this.lexema +="2 "+ registro[0] +" ";
+            this.lexema += registro[1] +"\n";
+            
         }
     }
 }

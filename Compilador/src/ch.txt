@@ -1,0 +1,10 @@
+INICIO
+NB|GyT
+NC|123
+NCH|123
+LF|Guatemala 12 enero 2018
+P|Luis Castillo
+MC|100.25
+LT|doscientos quetzales exactos
+FC|Francisco Huit
+FIN
