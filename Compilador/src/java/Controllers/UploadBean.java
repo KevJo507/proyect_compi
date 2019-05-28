@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controllers;
 
 import Model.Variables;
@@ -26,13 +21,23 @@ public class UploadBean extends Variables {
     
     String linea;
     String[] registro = new String[2];
-    
-    
+        
     public void upload() throws IOException {
-     AnalisisLexico();
-     AnalisisSitactico();
-     AnalisisSemantico();
+        clean();
+        Archivo();
+        AnalisisLexico();
+        AnalisisSitactico();
+        AnalisisSemantico();
     }  
+    
+    public void Archivo() throws IOException{
+        BufferedReader leer = new BufferedReader(new InputStreamReader(file.getInputStream()));
+        
+        while((linea = leer.readLine())!= null){
+            registro = linea.split("\\|");
+            archivo += registro[0] + " | " + registro[1] +"\n";
+        }
+    }
     
     public void AnalisisLexico() throws IOException{
         BufferedReader leer = new BufferedReader(new InputStreamReader(file.getInputStream()));
@@ -48,7 +53,7 @@ public class UploadBean extends Variables {
         
         while((linea = leer.readLine())!= null){
             registro = linea.split("\\|");
-            Sintactico += registro[0] + " | " + registro[1] +"\n";
+            sintactico += registro[0] + " | " + registro[1] +"\n";
         }
     }
     
@@ -59,6 +64,13 @@ public class UploadBean extends Variables {
             registro = linea.split("\\|");
             semantico += registro[0] + " | " + registro[1] +"\n";
         }
+    }
+    
+    public void clean(){
+        setArchivo("");
+        setLexico("");
+        setSemantico("");
+        setSintactico("");        
     }
 } 
     

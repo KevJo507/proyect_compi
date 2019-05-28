@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
 import javax.inject.Named;
@@ -17,22 +12,27 @@ public class Variables {
         
     protected Part file;
     protected String lexico ="" ;
-    protected String  semantico = "";
-    protected String  Sintactico = "";
-
+    protected String semantico = "";
+    protected String sintactico = "";
+    protected String archivo ="";
     
     public Part getFile() {
         return file;
     }
-
     public void setFile(Part file) {
         this.file = file;
+    }
+    
+    public String getArchivo() {
+        return archivo;
+    }
+    public void setArchivo(String archivo) {
+        this.archivo = archivo;
     }
 
     public String getLexico() {
         return lexico;
     }
-
     public void setLexico(String lexico) {
         this.lexico = lexico;
     }
@@ -40,17 +40,15 @@ public class Variables {
     public String getSemantico() {
         return semantico;
     }
-
     public void setSemantico(String semantico) {
         this.semantico = semantico;
     }
 
     public String getSintactico() {
-        return Sintactico;
+        return sintactico;
     }
-
-    public void setSintactico(String Sintactico) {
-        this.Sintactico = Sintactico;
+    public void setSintactico(String sintactico) {
+        this.sintactico = sintactico;
     }
     
 
