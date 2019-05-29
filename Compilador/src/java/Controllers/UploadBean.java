@@ -1,6 +1,7 @@
 package Controllers;
 
 import Model.Variables;
+import Controllers.TablaSimbolo;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,7 +21,10 @@ import javax.faces.bean.ViewScoped;
 public class UploadBean extends Variables {
     
     String linea;
-    String[] registro = new String[2];
+    String[] registro;
+    
+    ALexico ALexico = new ALexico();
+    TablaSimbolo Tsimbol = new TablaSimbolo();
         
     public void upload() throws IOException {
         clean();
@@ -35,16 +39,47 @@ public class UploadBean extends Variables {
         
         while((linea = leer.readLine())!= null){
             registro = linea.split("\\|");
-            archivo += registro[0] + " | " + registro[1] +"\n";
+            for(int i=0; i < registro.length; i++){
+                archivo += registro[i] + " | ";
+            }
+            archivo += "\n";
         }
     }
     
     public void AnalisisLexico() throws IOException{
         BufferedReader leer = new BufferedReader(new InputStreamReader(file.getInputStream()));
+        int l = 0;
         
         while((linea = leer.readLine())!= null){
-            registro = linea.split("\\|");
-            lexico += registro[0] + " | " + registro[1] +"\n";
+            registro = (linea.split("\\|"));
+            lexico += l+ "| ";
+            
+            for(int i=0; i < registro.length; i++){
+                lexico += registro[i] + " | ";
+            }
+            lexico += "\n";         
+            
+            String [] t;
+            
+            for(int j =0; j<(registro.length); j++){
+                t = registro[j].split(" ");
+                for(int i =0;i < t.length; i++){
+
+                    if(ALexico.esNumero(t[i]) != ""){
+                        lexico += ALexico.esNumero(t[i]);
+                    } 
+                    else if(ALexico.esTexto(t[i]) == true){
+                        lexico +="Token: id, Lexema:" + t[i];
+                    }
+                    else if(ALexico.esDecimal(t[i]) != ""){
+                        lexico += ALexico.esDecimal(t[i]);
+                    }
+                    lexico += "\n";
+                    
+                }
+                l++;
+            }
+            lexico += "\n";   
         }
     }
     
@@ -53,7 +88,10 @@ public class UploadBean extends Variables {
         
         while((linea = leer.readLine())!= null){
             registro = linea.split("\\|");
-            sintactico += registro[0] + " | " + registro[1] +"\n";
+            for(int i=0; i < registro.length; i++){
+                sintactico += registro[i] + " | ";
+            }
+            sintactico += "\n";         
         }
     }
     
@@ -62,7 +100,10 @@ public class UploadBean extends Variables {
         
         while((linea = leer.readLine())!= null){
             registro = linea.split("\\|");
-            semantico += registro[0] + " | " + registro[1] +"\n";
+            for(int i=0; i < registro.length; i++){
+                semantico += registro[i] + " | ";
+            }
+            semantico += "\n";  
         }
     }
     

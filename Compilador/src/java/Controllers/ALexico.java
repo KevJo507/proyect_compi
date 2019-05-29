@@ -27,7 +27,41 @@ public class ALexico {
         return this.registro;
     }
     
-    public boolean esNumero(String numero) {
+    public boolean esTexto(String texto) {
+        String letra = "[A-Za-z]";
+        String digitoLetra = "[0-9A-Za-z]";
+        String caracter = "";
+        int estado = 1;
+        for (int i = 0; i < texto.length(); i++) {
+            caracter = texto.charAt(i) + "";
+            switch (estado) {
+                case 1:
+                    if (caracter.matches(letra)) {
+                        estado = 2;
+                    } else if(caracter.matches(" ")){
+                        estado = 2;
+                    } else {
+                        estado = 3;
+                    }
+                    break;
+                case 2:
+                    if (caracter.matches(digitoLetra)) {
+                        estado = 2;
+                    } else if(caracter.matches(" ")){
+                        estado = 2;
+                    } else {
+                        estado = 3;
+                    }
+                    break;
+            }
+        }
+        if (estado != 3) {
+            return true;
+        }
+        return false;
+    }
+    
+    public String esNumero(String numero) {
         String  digito = "[0-9]";
         String caracter = "";
         int estado = 1;
@@ -44,21 +78,26 @@ public class ALexico {
             }
         }
         if (estado != 2) {
-            System.out.print(numero + "Es numero");
-            return true;
+            return "Token: Numero entero, Lexema:" + numero;
         }
-        System.out.print(numero + "No es numero");
-        return false;
+        return "";
     }
-
-    public void Guardar() throws FileNotFoundException, IOException{
-        UploadBean archivo = new UploadBean();
-        BufferedReader leer = new BufferedReader(new FileReader((File) archivo.getFile()));
-        String linea;
-        this.registro = new String[2];  
-        
-        while((linea = leer.readLine()) != null){
-            this.registro = linea.split("\\|");
+    
+    public String esDecimal(String numero) {
+        String  digito = "[0-9]";
+        String caracter = "";
+        int estado = 0;
+        for (int i = 0; i < numero.length(); i++) {
+            caracter = numero.charAt(i) + "";
+            if(caracter.matches(digito)){
+                if(caracter.matches(".")){
+                    estado = 1;
+                }
+            }
         }
+        if (estado != 0) {
+            return "Token: Numero decimal, Lexema:" + numero;
+        } 
+            return "";
     }
 }
