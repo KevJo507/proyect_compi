@@ -2,7 +2,7 @@ package Controllers;
 
 /**
  *
- * @author outkmqg
+ * @author KevinH
  */
 public class Simbolo {
     private String token;

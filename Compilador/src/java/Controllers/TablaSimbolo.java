@@ -8,7 +8,7 @@ import javax.inject.Named;
 
 /**
  *
- * @author outkmqg
+ * @author KevinH
  */
 
 @Named(value = "Tsimbolos")
@@ -42,28 +42,5 @@ public class TablaSimbolo {
 
 	public void setSimbolosInicial(ArrayList<Simbolo> simbolosInicial) {
 		this.simbolosInicial = simbolosInicial;
-	}
-	
-	public Simbolo getSimboloByLexema(String lexema){
-		for(Simbolo simbolo : this.simbolosInicial)
-			if(simbolo.getLexema().equalsIgnoreCase(lexema))
-				return simbolo;
-		return null;
-	}
-	
-	public boolean isLexemaSimbolo(String lexema){
-		for(Simbolo simbolo : this.simbolosInicial)
-			if(simbolo.getLexema().equalsIgnoreCase(lexema) && simbolo.isPalabraReservada())
-				return true;
-		return false;
-	}
-	
-	public boolean existLexemaId(String lexema) {
-		for (Simbolo simbolo : this.simbolosInicial) {
-			if ((lexema.equalsIgnoreCase(simbolo.getLexema())) && (!simbolo.isPalabraReservada())) {
-				return true;
-			}
-		}
-		return false;
 	}
 }

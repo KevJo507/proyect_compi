@@ -2,7 +2,7 @@ package Model;
 
 /**
  *
- * @author KevJo
+ * @author KevinH
  */
 public class Nodo {
 

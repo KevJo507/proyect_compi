@@ -1,18 +1,12 @@
 package Controllers;
 
-import Controllers.UploadBean;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import javax.inject.Named;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 /**
  *
- * @author LSOPORTEJ
+ * @author KevinH
  */
 
 @Named(value = "aLexico")
@@ -21,12 +15,7 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 
 public class ALexico {
-    private String[] registro;
-    
-    public String[] getRegistro(){
-        return this.registro;
-    }
-    
+        
     public boolean esTexto(String texto) {
         String letra = "[A-Za-z]";
         String digitoLetra = "[0-9A-Za-z]";
@@ -83,21 +72,61 @@ public class ALexico {
         return "";
     }
     
+    public boolean esSimbolo(String cadena){
+       String[] sim = {"\\*", "\\/", "\\-", "\\+", "\\.", "\\|", "\\°", "\\!", "\\#", "\\$", 
+                       "\\%", "\\&", "\\/", "\\(", "\\)", "\\=", "\\?", "\\¡", "\\]", "\\'", 
+                       "\\¿", "\\}", "\\´", "\\;", "\\:", "\\,", "\\-", "\\_", "\\<", "\\>"};
+       String caracter = "";
+       int estado = 0;
+       for(int i = 0; i < cadena.length(); i++){
+           caracter = (cadena.charAt(i)) + "";
+           for(int j = 0; j < sim.length; j++){
+               if(caracter.matches(sim[j])){
+                   estado = 1;
+               }
+           }
+       }
+       if (estado != 0) {
+            return true;
+        }
+        return false;
+    }
+    
     public String esDecimal(String numero) {
-        String  digito = "[0-9]";
-        String caracter = "";
-        int estado = 0;
-        for (int i = 0; i < numero.length(); i++) {
+        String caracter ="";
+        int estado = 1;
+        
+        for(int i = 0; i < numero.length(); i++ ){
             caracter = numero.charAt(i) + "";
-            if(caracter.matches(digito)){
-                if(caracter.matches(".")){
-                    estado = 1;
-                }
+            
+            switch(estado) {
+                case 1:
+                    if(esNumero(caracter) != ""){
+                        estado = 1;
+                    } else {
+                        estado = 2;
+                        i--;
+                    }
+                    break;
+                case 2:
+                    if(caracter.matches("\\.")){
+                        estado = 1;
+                    } else {
+                        estado = 3;
+                        i--;
+                    }
+                    break;
+                case 3:
+                    if(esSimbolo(caracter)){
+                        estado = 4;
+                    } 
+                    break;
             }
         }
-        if (estado != 0) {
+        if (estado != 4) {
             return "Token: Numero decimal, Lexema:" + numero;
         } 
             return "";
     }
+   
 }

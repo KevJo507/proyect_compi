@@ -11,10 +11,10 @@ import javax.servlet.http.Part;
 public class Variables {
         
     protected Part file;
-    protected String lexico ="" ;
-    protected String semantico = "";
-    protected String sintactico = "";
-    protected String archivo ="";
+    protected String lexico = ".::ANALIZADOR LEXICO::.\n\n";
+    protected String semantico = ".::ANALIZADOR SEMANTICO::.\n\n";
+    protected String sintactico = ".::ANALIZADOR SINTACTICO::.\n\n";
+    protected String archivo = ".::ARCHIVO DE TEXTO::.\n\n";
     
     public Part getFile() {
         return file;

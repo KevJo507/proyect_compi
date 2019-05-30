@@ -1,7 +1,6 @@
 package Controllers;
 
 import Model.Variables;
-import Controllers.TablaSimbolo;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,7 +10,7 @@ import javax.faces.bean.ViewScoped;
 
 /**
  *
- * @author josue
+ * @author Josue & KevinH
  */
 @Named(value = "uploadBean")
 
@@ -30,13 +29,13 @@ public class UploadBean extends Variables {
         clean();
         Archivo();
         AnalisisLexico();
-        AnalisisSitactico();
-        AnalisisSemantico();
+//        AnalisisSitactico();
+//        AnalisisSemantico();
     }  
     
     public void Archivo() throws IOException{
         BufferedReader leer = new BufferedReader(new InputStreamReader(file.getInputStream()));
-        
+        archivo += ".::ARCHIVO DE TEXTO::.\n\n";
         while((linea = leer.readLine())!= null){
             registro = linea.split("\\|");
             for(int i=0; i < registro.length; i++){
@@ -49,7 +48,7 @@ public class UploadBean extends Variables {
     public void AnalisisLexico() throws IOException{
         BufferedReader leer = new BufferedReader(new InputStreamReader(file.getInputStream()));
         int l = 0;
-        
+        lexico += ".::ANALIZADOR LEXICO::.\n\n";
         while((linea = leer.readLine())!= null){
             registro = (linea.split("\\|"));
             lexico += l+ "| ";
@@ -74,11 +73,14 @@ public class UploadBean extends Variables {
                     else if(ALexico.esDecimal(t[i]) != ""){
                         lexico += ALexico.esDecimal(t[i]);
                     }
+                    else if(ALexico.esSimbolo(t[i]) == true){
+                        lexico +="Token: Simbolo, Lexema:" + t[i];
+                    }
                     lexico += "\n";
                     
                 }
-                l++;
             }
+            l++;
             lexico += "\n";   
         }
     }
